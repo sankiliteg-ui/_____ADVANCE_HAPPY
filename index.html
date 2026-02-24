@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Gussele Mittar | ANNU</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; background: #050505; color: white; font-family: 'Poppins', sans-serif; overflow-x: hidden; }
+        canvas { position: fixed; top: 0; left: 0; z-index: -1; }
+        
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 { font-size: clamp(2.5rem, 12vw, 6rem); margin: 0; font-weight: 800; text-transform: uppercase; line-height: 1; letter-spacing: -2px; }
+        .pink-gradient { 
+            background: linear-gradient(45deg, #ff007f, #ffab00, #00ffcc); 
+            background-size: 200% auto;
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes shine { to { background-position: 200% center; } }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 35px;
+            max-width: 90%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .emotional-text { font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: #ffb7c5; margin-bottom: 15px; }
+
+        .btn-container { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 300px; margin-top: 30px; }
+        
+        .special-btn {
+            text-decoration: none;
+            padding: 18px 25px;
+            border-radius: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+        }
+
+        .btn-1 { background: #ff007f; color: white; box-shadow: 0 10px 30px rgba(255, 0, 127, 0.4); }
+        .btn-2 { background: transparent; border: 2px solid #00ffcc; color: #00ffcc; }
+        .special-btn:active { transform: scale(0.95); }
+
+        .emoji-float { position: absolute; font-size: 2.5rem; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); pointer-events: none; }
+    </style>
+</head>
+<body>
+
+    <canvas id="bg"></canvas>
+
+    <section>
+        <span class="emoji-float" style="top:15%; left:10%">🎨</span>
+        <span class="emoji-float" style="bottom:25%; right:10%">💥</span>
+        <p style="letter-spacing: 5px; font-weight: 300; margin-bottom: 10px;">OI, GUSSELE MITTAR!</p>
+        <h1 class="reveal">HAPPY ADVANCE <br> <span class="pink-gradient">HOLI</span> <br> ANNU</h1>
+        <p style="margin-top: 20px; opacity: 0.6; font-size: 0.9rem;">The more you get angry, the more colors I'll throw! <br> Scroll to see why... 👇</p>
+    </section>
+
+    <section id="emotional">
+        <div class="glass-card">
+            <div class="emotional-text">"To my favorite grump..."</div>
+            <p style="line-height: 1.6;">Annu, I know you get angry easily (meri <b>Gussele Mittar</b>!), but Holi is the only day I can cover that angry face with colors and pretend you aren't scolding me! 😂</p>
+            <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
+                Our friendship is like Holi—messy, loud, but always full of life. No matter how much we fight, you'll always be my best 'Idiot'. 💖
+            </p>
+        </div>
+    </section>
+
+    <section>
+        <h1 style="font-size: 3rem;">THE PEACE <br> TREATY 🕊️</h1>
+        <p style="opacity: 0.8;">Don't be a , check these out:</p>
+        
+        <div class="btn-container">
+            <a href="https://sankiliteg-ui.github.io/lastmessage" class="special-btn btn-1">📩 Last Message</a>
+            <a href="https://sankiliteg-ui.github.io/idiot/" class="special-btn btn-2"> For My Idiot</a>
+        </div>
+        
+        <p style="margin-top: 50px; font-size: 0.75rem; opacity: 0.4; letter-spacing: 1px;">HAPPY ADVANCE HOLI, ANNU! <br> AB GUSSA THUK DO. 🍭</p>
+    </section>
+
+    <script>
+        // --- THREE.JS ENGINE ---
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#bg'), antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        camera.position.z = 30;
+
+        // Interactive 3D Object
+        const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
+        const material = new THREE.PointsMaterial({ size: 0.08, color: 0xff007f, transparent: true });
+        const torusKnot = new THREE.Points(geometry, material);
+        scene.add(torusKnot);
+
+        // Particle Dust
+        const particlesGeom = new THREE.BufferGeometry();
+        const pCount = 1500; // Optimized for mobile
+        const pos = new Float32Array(pCount * 3);
+        for(let i=0; i<pCount*3; i++) pos[i] = (Math.random() - 0.5) * 120;
+        particlesGeom.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+        const particles = new THREE.Points(particlesGeom, new THREE.PointsMaterial({size: 0.15, color: 0x00ffcc, opacity: 0.5}));
+        scene.add(particles);
+
+        // Touch/Mouse Interaction
+        let mouseX = 0;
+        let mouseY = 0;
+        document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+        document.addEventListener('touchmove', (e) => { mouseX = e.touches[0].clientX; mouseY = e.touches[0].clientY; });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            torusKnot.rotation.x += 0.005;
+            torusKnot.rotation.y += 0.01;
+            
+            // Subtle float effect based on interaction
+            particles.rotation.y += 0.001;
+            particles.position.x += (mouseX/window.innerWidth - 0.5) * 0.05;
+            
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // --- GSAP SCROLL MAGIC ---
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from(".reveal", { opacity: 0, y: 50, duration: 1, stagger: 0.3 });
+        
+        gsap.from(".glass-card", {
+            scrollTrigger: {
+                trigger: "#emotional",
+                start: "top 80%",
+            },
+            y: 100,
+            opacity: 0,
+            duration: 1.2,
+            ease: "back.out(1.7)"
+        });
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth/window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
